@@ -38,28 +38,50 @@ x_equilibrio = F / (p − c)
 
 ## Requisitos
 
-- [Node.js](https://nodejs.org/) 18 o superior
+- [Node.js](https://nodejs.org/) 22 o superior
+- [pnpm](https://pnpm.io/) 12.14.0 (incluir con Node.js antes de la instalacion)
 - Git
+- Opcional: [Docker](https://www.docker.com/) para correrlo sin instalar Node.js
 
 ## Instalación
 
 ```bash
 git clone https://github.com/HaJuegos/calculadora-casetas.git
 cd calculadora-casetas
-npm install
+npm install -g pnpm@12.14.0
+pnpm install
 ```
 
 ## Uso
 
 ```bash
-npm start
+pnpm start
 ```
+
+Abre http://localhost:5173.
 
 Para ejecutar las pruebas:
 
 ```bash
-npm test
+pnpm test
 ```
+
+Para generar la versión estática en `dist/`:
+
+```bash
+pnpm build
+```
+
+## Con Docker
+
+No necesitas Node.js ni pnpm instalados:
+
+```bash
+docker build -t calculadora-casetas .
+docker run --rm -p 8080:80 calculadora-casetas
+```
+
+Abre http://localhost:8080. Para detenerlo, presiona `Ctrl + C`.
 
 ## Resultados de referencia
 
@@ -70,7 +92,3 @@ npm test
 | Costo variable por caseta (COP)     | 2.492.490      | 2.389.859        |
 | Punto de equilibrio (casetas/mes)   | 3              | 2                |
 | Utilidad con 8 casetas (COP)        | 8.860.080      | 9.681.128        |
-
-## Personalización
-
-Todos los datos (dimensiones, costos, precio y capacidad) se modifican en `src/config/datos.js`. Los valores incluidos son de referencia y deben actualizarse con cotizaciones reales.
