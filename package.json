@@ -1,0 +1,40 @@
+{
+    "name": "calculadora-casetas",
+    "version": "0.0.1",
+    "description": "Programa en Node.js que calcula el área de lámina, los costos de producción, el punto de equilibrio y el impacto de una propuesta de mejora para la fabricación de casetas de seguridad prefabricadas con techo a dos aguas.",
+    "scripts": {
+        "dev": "vite",
+        "start": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "vitest run"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HaJuegos/calculadora-casetas.git"
+    },
+    "keywords": [],
+    "author": "Ha Juegos",
+    "license": "MIT",
+    "packageManager": "pnpm@12.14.0",
+    "type": "module",
+    "bugs": {
+        "url": "https://github.com/HaJuegos/calculadora-casetas/issues"
+    },
+    "homepage": "https://github.com/HaJuegos/calculadora-casetas#readme",
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "12.14.0",
+            "onFail": "download"
+        }
+    },
+    "devDependencies": {
+        "vite": "^8.3.4",
+        "vitest": "^5.0.5"
+    },
+    "dependencies": {
+        "bootstrap": "5.3.9",
+        "bootstrap-icons": "^1.13.2"
+    }
+}

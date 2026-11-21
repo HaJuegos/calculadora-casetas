@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calculadora de área y costos de casetas prefabricadas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        const temaGuardado = localStorage.getItem("caseta-lamina-tema");
+        const temaOscuro = temaGuardado
+            ? temaGuardado === "oscuro"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.tema = temaOscuro ? "oscuro" : "claro";
+    </script>
+    <link rel="stylesheet" href="/src/css/main.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg barra sticky-top">
+        <div class="container">
+            <a class="navbar-brand marca" href="#inicio">
+                <span class="marca-logo" aria-hidden="true">c.</span>
+                Casetas Prefabricadas
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li class="nav-item"><a class="nav-link" href="#modelo">Modelo geométrico</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#costos">Costos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#propuesta">Propuesta</a></li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-outline-ink btn-sm" id="btn-tema"
+                            aria-label="Activar modo oscuro" aria-pressed="false">
+                            <i class="bi bi-moon-stars me-1" aria-hidden="true"></i>
+                            <span>Modo oscuro</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-outline-ink btn-sm" id="btn-imprimir">
+                            Imprimir informe <i class="bi bi-printer ms-1"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="inicio">
+        <header class="seccion seccion-hero">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <p class="etiqueta">Diseño, producción y costos</p>
+                        <h1 class="titular">Menos lámina perdida.<br />Un negocio más <span
+                                class="resaltado">rentable.</span></h1>
+                        <p class="lead texto-suave mt-4">Calcula la superficie de una caseta de seguridad, estima el
+                            costo de producirla por lote y compara el proceso actual con uno optimizado.</p>
+                        <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                            <a href="#modelo" class="btn btn-ink btn-lg">Probar la calculadora <i
+                                    class="bi bi-arrow-down ms-1"></i></a>
+                            <a href="#propuesta" class="btn btn-link enlace-ink">Ver la propuesta de mejora</a>
+                        </div>
+                        <p class="nota mt-4 mb-0">Los valores iniciales son ilustrativos. Ajústalos a tus medidas y a
+                            cotizaciones reales.</p>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <figure class="figura mb-0">
+                            <span class="tag tag-ancho">ancho · a</span>
+                            <span class="tag tag-largo">largo · l</span>
+                            <img src="/imgs/image1.png" class="img-fluid"
+                                alt="Caseta de seguridad prefabricada de lámina con techo a dos aguas, puerta al frente y ventana lateral"
+                                width="720" height="480" />
+                            <figcaption class="nota mt-3 mb-0">Prototipo a escala. Geometría simplificada para estimar
+                                la lámina.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="seccion" id="modelo">
+            <div class="container">
+                <div class="row g-4 align-items-end mb-5">
+                    <div class="col-lg-7">
+                        <p class="etiqueta">A. Modelo geométrico</p>
+                        <h2 class="subtitular">¿Cuánta lámina necesita una caseta?</h2>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <p class="texto-suave mb-0">La caseta es un prisma rectangular con techo a dos aguas. Sumamos
+                            paredes, piso, dos faldones y dos frontones triangulares, y restamos la puerta y la ventana.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="panel h-100">
+                            <p class="etiqueta">Área total de lámina</p>
+                            <p class="formula" aria-label="Ecuación del área total">
+                                A = 2<var>h</var>(<var>a</var> + <var>l</var>) + <var>a</var>·<var>l</var> +
+                                2·<var>l</var>·<var>s</var> + <var>a</var>·<var>t</var> − <var>A</var><sub>p</sub> −
+                                <var>A</var><sub>v</sub>
+                            </p>
+                            <p class="formula formula-sec"><var>s</var> = √( (<var>a</var>/2)² + <var>t</var>² )</p>
+                            <p class="nota">a: ancho · l: largo · h: altura de paredes · t: altura del techo · s:
+                                pendiente del techo. Las medidas van en metros.</p>
+
+                            <form class="row g-3 mt-2" id="form-geometria" onsubmit="return false" novalidate>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-a" value="1.5" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="a" />
+                                        <label for="in-a">Ancho a (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-l" value="2" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="l" />
+                                        <label for="in-l">Largo l (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-h" value="2.3" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="h" />
+                                        <label for="in-h">Altura h (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-t" value="0.4" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="t" />
+                                        <label for="in-t">Techo t (m)</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-pw" value="0.8" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="pw" />
+                                        <label for="in-pw">Puerta ancho (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-ph" value="2" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="ph" />
+                                        <label for="in-ph">Puerta alto (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-vw" value="1" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="vw" />
+                                        <label for="in-vw">Ventana ancho (m)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-vh" value="0.8" min="0"
+                                            step="0.01" inputmode="decimal" placeholder="vh" />
+                                        <label for="in-vh">Ventana alto (m)</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-desp" value="10" min="0"
+                                            max="100" step="0.5" inputmode="decimal" placeholder="d" />
+                                        <label for="in-desp">Desperdicio de corte (%)</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="panel-ink h-100" aria-live="polite">
+                            <p class="etiqueta etiqueta-clara">Lámina a comprar por caseta</p>
+                            <p class="cifra mb-1"><span id="out-lamina">22,77</span> <span class="unidad">m²</span></p>
+                            <p class="nota nota-clara">Área total <strong id="out-total">20,70</strong> m² más el
+                                desperdicio de corte.</p>
+
+                            <dl class="lista-datos mt-4 mb-0">
+                                <div>
+                                    <dt>Pendiente del techo s</dt>
+                                    <dd><span id="out-s">0,85</span> m</dd>
+                                </div>
+                                <div>
+                                    <dt>Paredes</dt>
+                                    <dd><span id="out-paredes">16,10</span> m²</dd>
+                                </div>
+                                <div>
+                                    <dt>Piso</dt>
+                                    <dd><span id="out-piso">3,00</span> m²</dd>
+                                </div>
+                                <div>
+                                    <dt>Faldones del techo</dt>
+                                    <dd><span id="out-faldones">3,40</span> m²</dd>
+                                </div>
+                                <div>
+                                    <dt>Frontones triangulares</dt>
+                                    <dd><span id="out-frontones">0,60</span> m²</dd>
+                                </div>
+                                <div>
+                                    <dt>Puerta (se descuenta)</dt>
+                                    <dd>−<span id="out-puerta">1,60</span> m²</dd>
+                                </div>
+                                <div>
+                                    <dt>Ventana (se descuenta)</dt>
+                                    <dd>−<span id="out-ventana">0,80</span> m²</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion" id="costos">
+            <div class="container">
+                <div class="row g-4 align-items-end mb-5">
+                    <div class="col-lg-7">
+                        <p class="etiqueta">B. Función de costo total</p>
+                        <h2 class="subtitular">¿Cuánto cuesta producir un lote?</h2>
+                    </div>
+                    <div class="col-lg-5">
+                        <p class="texto-suave mb-0">Los costos fijos no cambian con la producción. Cada caseta adicional
+                            suma un costo variable constante. Con ambos se obtiene C(x), el ingreso, la utilidad y el
+                            punto de equilibrio.</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="panel">
+                            <p class="etiqueta">Costos variables por caseta</p>
+                            <form class="row g-3" id="form-variables" onsubmit="return false" novalidate>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-precio-m2">Lámina por m²</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-precio-m2" value="37000" min="0" step="100"
+                                            inputmode="numeric" /></div>
+                                    <div class="form-text">Costo de lámina por caseta: <strong
+                                            id="out-costo-lamina">$842.490</strong></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-estructura">Estructura en perfiles</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-estructura" value="480000" min="0" step="1000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-puertaventana">Puerta metálica y ventana con
+                                        vidrio</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-puertaventana" value="420000" min="0"
+                                            step="1000" inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-pintura">Pintura anticorrosiva y esmalte</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-pintura" value="120000" min="0" step="1000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-insumos">Soldadura, tornillería e insumos</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-insumos" value="90000" min="0" step="1000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="form-label d-block">Mano de obra</span>
+                                    <div class="row g-2">
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" id="in-operarios" value="2"
+                                                min="0" step="1" inputmode="numeric" aria-label="Operarios" />
+                                            <div class="form-text">operarios</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" id="in-dias" value="3" min="0"
+                                                step="0.5" inputmode="decimal" aria-label="Días por caseta" />
+                                            <div class="form-text">días</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" id="in-jornal" value="90000"
+                                                min="0" step="1000" inputmode="numeric"
+                                                aria-label="Jornal por operario" />
+                                            <div class="form-text">jornal</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <hr class="my-4" />
+
+                            <p class="etiqueta">Costos fijos mensuales</p>
+                            <form class="row g-3" id="form-fijos" onsubmit="return false" novalidate>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-arriendo">Arriendo del taller</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-arriendo" value="1800000" min="0" step="10000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-servicios">Servicios públicos</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-servicios" value="450000" min="0" step="10000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-mant">Mantenimiento y depreciación de
+                                        herramientas</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-mant" value="350000" min="0" step="10000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-admin">Administración y contabilidad</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-admin" value="600000" min="0" step="10000"
+                                            inputmode="numeric" /></div>
+                                </div>
+                            </form>
+
+                            <hr class="my-4" />
+
+                            <p class="etiqueta">Venta y producción</p>
+                            <form class="row g-3" id="form-venta" onsubmit="return false" novalidate>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-precio-venta">Precio de venta por caseta</label>
+                                    <div class="input-group"><span class="input-group-text">$</span><input type="number"
+                                            class="form-control" id="in-precio-venta" value="4000000" min="0"
+                                            step="50000" inputmode="numeric" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="in-x">Casetas producidas al mes (x)</label>
+                                    <input type="number" class="form-control" id="in-x" value="8" min="0" step="1"
+                                        inputmode="numeric" />
+                                    <div class="form-text">Capacidad del taller: 8 casetas al mes.</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="panel-ink h-100" aria-live="polite">
+                            <p class="etiqueta etiqueta-clara">Utilidad mensual con <span id="out-x-texto">8</span>
+                                casetas</p>
+                            <p class="cifra mb-1" id="out-utilidad-x">$8.860.080</p>
+                            <p class="nota nota-clara">Punto de equilibrio: <strong id="out-equilibrio">3</strong>
+                                casetas al mes (<span id="out-equilibrio-exacto">2,12</span> exacto).</p>
+
+                            <dl class="lista-datos mt-4">
+                                <div>
+                                    <dt>Costo variable por caseta (c)</dt>
+                                    <dd id="out-c">$2.492.490</dd>
+                                </div>
+                                <div>
+                                    <dt>Costos fijos mensuales (F)</dt>
+                                    <dd id="out-f">$3.200.000</dd>
+                                </div>
+                                <div>
+                                    <dt>Margen por caseta (p − c)</dt>
+                                    <dd id="out-margen">$1.507.510</dd>
+                                </div>
+                            </dl>
+
+                            <p class="etiqueta etiqueta-clara mt-4">Funciones</p>
+                            <ul class="funciones list-unstyled mb-0">
+                                <li><span>C(x)</span> <code id="fn-costo">3.200.000 + 2.492.490x</code></li>
+                                <li><span>I(x)</span> <code id="fn-ingreso">4.000.000x</code></li>
+                                <li><span>U(x)</span> <code id="fn-utilidad">1.507.510x − 3.200.000</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel mt-4">
+                    <p class="etiqueta">Costo, ingreso y utilidad según la producción mensual</p>
+                    <div class="table-responsive">
+                        <table class="table tabla align-middle mb-0">
+                            <caption class="visually-hidden">Costo, ingreso y utilidad por cantidad de casetas
+                                producidas al mes, en pesos colombianos</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Casetas (x)</th>
+                                    <th scope="col" class="num">C(x)</th>
+                                    <th scope="col" class="num">I(x)</th>
+                                    <th scope="col" class="num">U(x)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-produccion"></tbody>
+                        </table>
+                    </div>
+                    <p class="nota mt-3 mb-0">Valores en pesos colombianos (COP). La utilidad en negativo indica
+                        pérdida.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion" id="propuesta">
+            <div class="container">
+                <div class="row g-4 align-items-end mb-5">
+                    <div class="col-lg-7">
+                        <p class="etiqueta">C. Propuesta de mejora</p>
+                        <h2 class="subtitular">Cortar mejor y comprar por mayor.</h2>
+                    </div>
+                    <div class="col-lg-5">
+                        <p class="texto-suave mb-0">La lámina es el costo variable con más peso. Reducir su desperdicio
+                            y su precio unitario es la mejora con mayor impacto, sin cambiar el precio de venta ni la
+                            calidad.</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <div class="panel h-100">
+                            <p class="etiqueta">Acciones propuestas</p>
+                            <ul class="acciones list-unstyled">
+                                <li><i class="bi bi-scissors" aria-hidden="true"></i><span><strong>Corte
+                                            optimizado.</strong> Plantilla de corte sobre la hoja de 1,22 × 2,44 m para
+                                        bajar el desperdicio.</span></li>
+                                <li><i class="bi bi-box-seam" aria-hidden="true"></i><span><strong>Compra por
+                                            mayor.</strong> Pedido mensual consolidado de lámina con descuento por
+                                        volumen.</span></li>
+                                <li><i class="bi bi-calculator" aria-hidden="true"></i><span><strong>Cálculo por
+                                            pedido.</strong> Usar esta calculadora para estimar la lámina exacta de cada
+                                        pedido.</span></li>
+                            </ul>
+
+                            <form class="row g-3" id="form-mejora" onsubmit="return false" novalidate>
+                                <div class="col-6">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-desp-prop" value="5" min="0"
+                                            max="100" step="0.5" inputmode="decimal" placeholder="dp" />
+                                        <label for="in-desp-prop">Desperdicio nuevo (%)</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="in-desc" value="8" min="0"
+                                            max="100" step="0.5" inputmode="decimal" placeholder="dc" />
+                                        <label for="in-desc">Descuento en lámina (%)</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="panel h-100" aria-live="polite">
+                            <p class="etiqueta">Proceso actual contra proceso propuesto</p>
+                            <div class="table-responsive">
+                                <table class="table tabla align-middle mb-0">
+                                    <caption class="visually-hidden">Comparación de indicadores entre el proceso actual
+                                        y el propuesto</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Indicador</th>
+                                            <th scope="col" class="num">Actual</th>
+                                            <th scope="col" class="num col-propuesto">Propuesto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Desperdicio de lámina</th>
+                                            <td class="num" id="cmp-desp-act">10 %</td>
+                                            <td class="num col-propuesto" id="cmp-desp-prop">5 %</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Lámina por caseta</th>
+                                            <td class="num" id="cmp-area-act">22,77 m²</td>
+                                            <td class="num col-propuesto" id="cmp-area-prop">21,74 m²</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Precio de la lámina por m²</th>
+                                            <td class="num" id="cmp-precio-act">$37.000</td>
+                                            <td class="num col-propuesto" id="cmp-precio-prop">$34.040</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Costo de lámina por caseta</th>
+                                            <td class="num" id="cmp-lamina-act">$842.490</td>
+                                            <td class="num col-propuesto" id="cmp-lamina-prop">$739.859</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Costo variable (c)</th>
+                                            <td class="num" id="cmp-c-act">$2.492.490</td>
+                                            <td class="num col-propuesto" id="cmp-c-prop">$2.389.859</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Margen por caseta</th>
+                                            <td class="num" id="cmp-margen-act">$1.507.510</td>
+                                            <td class="num col-propuesto" id="cmp-margen-prop">$1.610.141</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Punto de equilibrio</th>
+                                            <td class="num" id="cmp-eq-act">3 casetas</td>
+                                            <td class="num col-propuesto" id="cmp-eq-prop">2 casetas</td>
+                                        </tr>
+                                        <tr class="fila-total">
+                                            <th scope="row">Utilidad con <span id="cmp-x">8</span> casetas</th>
+                                            <td class="num" id="cmp-util-act">$8.860.080</td>
+                                            <td class="num col-propuesto" id="cmp-util-prop">$9.681.128</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row g-3 mt-3">
+                                <div class="col-sm-6">
+                                    <div class="ahorro">
+                                        <span class="ahorro-valor" id="out-ahorro">$102.631</span>
+                                        <span class="ahorro-texto">de ahorro por caseta</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="ahorro">
+                                        <span class="ahorro-valor" id="out-aumento">+9,3 %</span>
+                                        <span class="ahorro-texto">de utilidad mensual</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion" id="conclusiones">
+            <div class="container">
+                <p class="etiqueta">Conclusiones</p>
+                <h2 class="subtitular mb-5">Lo que muestran los números.</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <h3 class="mini-titulo">El área se calcula, no se estima</h3>
+                        <p class="texto-suave mb-0">Con los valores iniciales, la caseta tiene 20,70 m² y requiere 22,77
+                            m² de lámina con un 10 % de desperdicio. Calcularla de forma empírica genera sobrecostos
+                            evitables.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="mini-titulo">El equilibrio llega con 3 casetas</h3>
+                        <p class="texto-suave mb-0">C(x) = 3.200.000 + 2.492.490x. Con la capacidad de 8 casetas al mes,
+                            la utilidad es de $8.860.080. La empresa ya tiene una base objetiva para fijar precio y
+                            planear producción.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="mini-titulo">La mejora paga sola</h3>
+                        <p class="texto-suave mb-0">Cortar mejor y comprar por mayor ahorra $102.631 por caseta, baja el
+                            equilibrio a 2 casetas y sube la utilidad un 9,3 %. Los costos son de referencia y deben
+                            validarse con cotizaciones reales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <p class="marca mb-2"><span class="marca-logo" aria-hidden="true">c.</span> Casetas Prefabricadas
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="/src/js/main.js"></script>
+</body>
+
+</html>
