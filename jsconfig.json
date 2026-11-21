@@ -2,13 +2,16 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "checkJs": false,
+        "moduleResolution": "bundler",
+        "checkJs": true,
+        "noEmit": true,
         "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "lib": ["esnext", "dom"],
         "types": ["vite/client"]
     },
-    "include": ["src/**/*.js", "src/**/*.jsx"]
+    "include": ["src/js/**/*.js", "src/**/*.js", "src/**/*.jsx"]
 }
